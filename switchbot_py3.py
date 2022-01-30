@@ -31,7 +31,7 @@ import sys
 import time
 from contextlib import contextmanager
 
-import bluetooth
+# import bluetooth
 from bluetooth.ble import DiscoveryService, GATTRequester
 
 
@@ -131,13 +131,13 @@ def main():
     parser.add_argument('-d', '--device', dest='device', required=False, default=None,
                         help="Specify the address of a device to control")
 
-    parser.add_argument('-c', '--command',  dest='command', required=False, default='press',
-                        choices=['press', 'on', 'off', 'open', 'close', 'pause'], 
+    parser.add_argument('-c', '--command', dest='command', required=False, default='press',
+                        choices=['press', 'on', 'off', 'open', 'close', 'pause'],
                         help="Command to be sent to device. \
                             Noted that press/on/off for Bot and open/close for Curtain. \
                             Required if the controlled device is Curtain (default: %(default)s)")
 
-    parser.add_argument('-i', '--interface',  dest='interface', required=False, default='hci0',
+    parser.add_argument('-i', '--interface', dest='interface', required=False, default='hci0',
                         help="Name of the bluetooth adapter (default: %(default)s)")
 
     parser.add_argument('--scan-timeout', dest='scan_timeout', type=int, required=False, default=2,
