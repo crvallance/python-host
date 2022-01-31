@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from flask import Flask
+from flask import Flask, Response
 
 from flask_httpauth import HTTPBasicAuth
 
@@ -31,27 +31,37 @@ def authenticate(username, password):
     return False
 
 
-@app.route('/on', methods=['GET'])
+@app.route("/")
+def verify():
+    return Response(
+        "Uh, we had a slight weapons malfunction, but uh... everything's perfectly all right now. We're fine. We're all fine here now, thank you. How are you?",
+        status=200,
+    )
+
+
+@app.route("/on", methods=["GET"])
+@auth.login_required
 def light_on():
     try:
-        driver.run_command('on')
-        return('Light on!')
+        driver.run_command("on")
+        return "Light on!"
     except ConnectionError as e:
-        return(f'Connection Error: {e}')
+        return f"Connection Error: {e}"
 
 
-@app.route('/off', methods=['GET'])
+@app.route("/off", methods=["GET"])
+@auth.login_required
 def light_off():
     try:
-        driver.run_command('off')
-        return('Light off!')
+        driver.run_command("off")
+        return "Light off!"
     except ConnectionError as e:
-        return(f'Connection Error: {e}')
+        return f"Connection Error: {e}"
 
 
 def main():
-    app.run(host='0.0.0.0', debug=True, port=8080)
+    app.run(host="0.0.0.0", debug=True, port=8080)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
