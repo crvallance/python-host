@@ -1,0 +1,2 @@
+# ignore my local .env file
+.env
